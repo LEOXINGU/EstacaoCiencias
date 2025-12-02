@@ -96,7 +96,7 @@ lyr_VideoRV360_4.set('fieldImages', {'fid': 'TextEdit', 'Descrição': 'TextEdit
 lyr_Inciodovdeo_5.set('fieldImages', {'fid': 'TextEdit', 'Descrição': 'TextEdit', 'URL': 'TextEdit', 'Ver360': 'TextEdit', 'QRCode': 'TextEdit', });
 lyr_FotosRV360_3.set('fieldLabels', {'fid': 'hidden field', 'name': 'hidden field', 'longitude': 'hidden field', 'latitude': 'hidden field', 'altitude': 'hidden field', 'azimuth': 'hidden field', 'date_time': 'no label', 'path': 'hidden field', 'fabricante': 'hidden field', 'modelo': 'hidden field', 'url': 'hidden field', 'HTML 360': 'no label', });
 lyr_VideoRV360_4.set('fieldLabels', {'fid': 'hidden field', 'Descrição': 'inline label - always visible', 'URL': 'hidden field', 'Video360': 'no label', 'QRCode': 'no label', });
-lyr_Inciodovdeo_5.set('fieldLabels', {'fid': 'no label', 'Descrição': 'no label', 'URL': 'no label', 'Ver360': 'no label', 'QRCode': 'no label', });
+lyr_Inciodovdeo_5.set('fieldLabels', {'fid': 'hidden field', 'Descrição': 'header label - visible with data', 'URL': 'hidden field', 'Ver360': 'no label', 'QRCode': 'no label', });
 lyr_Inciodovdeo_5.on('precompose', function(evt) {
     evt.context.globalCompositeOperation = 'normal';
 });
