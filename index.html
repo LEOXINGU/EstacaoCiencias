@@ -6,9 +6,35 @@
         <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <link rel="stylesheet" href="css/leaflet.css">
-        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
-        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <link rel="stylesheet" href="./resources/ol.css">
+        <link rel="stylesheet" href="resources/fontawesome-all.min.css">
+        <link href="resources/photon-geocoder-autocomplete.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="./resources/ol-layerswitcher.css">
+        <link rel="stylesheet" href="./resources/qgis2web.css">
+        <style>
+        html, body {
+            background-color: #ffffff;
+        }
+        .ol-control > * {
+            background-color: #f8f8f8!important;
+            color: #444444!important;
+            border-radius: 0px;
+        }
+        .ol-attribution a, .gcd-gl-input::placeholder, .search-layer-input-search::placeholder {
+            color: #444444!important;
+        }
+        .search-layer-input-search {
+            background-color: #f8f8f8!important;
+        }
+        .ol-control > *:focus, .ol-control >*:hover {
+            background-color: rgba(248, 248, 248, 0.7)!important;
+        } 
+        .ol-control {
+            background-color: rgba(255,255,255,.4) !important;
+            padding: 2px !important;
+        } 
+        </style>
+
         <style>
         html, body, #map {
             width: 100%;
@@ -21,130 +47,20 @@
     </head>
     <body>
         <div id="map">
+            <div id="popup" class="ol-popup">
+                <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+                <div id="popup-content"></div>
+            </div>
         </div>
-        <script src="js/qgis2web_expressions.js"></script>
-        <script src="js/leaflet.js"></script>
-        <script src="js/leaflet.rotatedMarker.js"></script>
-        <script src="js/leaflet.pattern.js"></script>
-        <script src="js/leaflet-hash.js"></script>
-        <script src="js/Autolinker.min.js"></script>
-        <script src="js/rbush.min.js"></script>
-        <script src="js/labelgun.min.js"></script>
-        <script src="js/labels.js"></script>
-        <script src="js/leaflet-measure.js"></script>
-        <script src="data/Fotos360_1.js"></script>
-        <script>
-        var map = L.map('map', {
-            zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[-7.148894621563459,-34.79962547655767],[-7.146725709821267,-34.796820557833364]]);
-        var hash = new L.Hash(map);
-        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
-        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
-        var measureControl = new L.Control.Measure({
-            position: 'topleft',
-            primaryLengthUnit: 'meters',
-            secondaryLengthUnit: 'kilometers',
-            primaryAreaUnit: 'sqmeters',
-            secondaryAreaUnit: 'hectares'
-        });
-        measureControl.addTo(map);
-        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
-        .innerHTML = '';
-        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
-        .className += ' fas fa-ruler';
-        var bounds_group = new L.featureGroup([]);
-        function setBounds() {
-        }
-        map.createPane('pane_OrtomosaicodeDrone_0');
-        map.getPane('pane_OrtomosaicodeDrone_0').style.zIndex = 400;
-        var img_OrtomosaicodeDrone_0 = 'data/OrtomosaicodeDrone_0.jpeg';
-        var img_bounds_OrtomosaicodeDrone_0 = [[-7.14831078235145,-34.79889074351265],[-7.1471715401668385,-34.797490101628206]];
-        var layer_OrtomosaicodeDrone_0 = new L.imageOverlay(img_OrtomosaicodeDrone_0,
-                                              img_bounds_OrtomosaicodeDrone_0,
-                                              {pane: 'pane_OrtomosaicodeDrone_0'});
-        bounds_group.addLayer(layer_OrtomosaicodeDrone_0);
-        map.addLayer(layer_OrtomosaicodeDrone_0);
-        function pop_Fotos360_1(feature, layer) {
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['caminho'] !== null ? autolinker.link(feature.properties['caminho'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['data_hora'] !== null ? autolinker.link(feature.properties['data_hora'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2"><strong>descrição</strong><br />' + (feature.properties['descrição'] !== null ? autolinker.link(feature.properties['descrição'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-        }
-
-        function style_Fotos360_1_0() {
-            return {
-                pane: 'pane_Fotos360_1',
-        rotationAngle: 0.0,
-        rotationOrigin: 'center center',
-        icon: L.icon({
-            iconUrl: 'markers/camera.svg',
-            iconSize: [45.599999999999994, 45.599999999999994]
-        }),
-                interactive: true,
-            }
-        }
-        map.createPane('pane_Fotos360_1');
-        map.getPane('pane_Fotos360_1').style.zIndex = 401;
-        map.getPane('pane_Fotos360_1').style['mix-blend-mode'] = 'normal';
-        var layer_Fotos360_1 = new L.geoJson(json_Fotos360_1, {
-            attribution: '',
-            interactive: true,
-            dataVar: 'json_Fotos360_1',
-            layerName: 'layer_Fotos360_1',
-            pane: 'pane_Fotos360_1',
-            onEachFeature: pop_Fotos360_1,
-            pointToLayer: function (feature, latlng) {
-                var context = {
-                    feature: feature,
-                    variables: {}
-                };
-                return L.marker(latlng, style_Fotos360_1_0(feature));
-            },
-        });
-        bounds_group.addLayer(layer_Fotos360_1);
-        map.addLayer(layer_Fotos360_1);
-        var baseMaps = {};
-        L.control.layers(baseMaps,{'<img src="legend/Fotos360_1.png" /> Fotos 360°': layer_Fotos360_1,"Ortomosaico de Drone": layer_OrtomosaicodeDrone_0,},{collapsed:false}).addTo(map);
-        setBounds();
-        var i = 0;
-        layer_Fotos360_1.eachLayer(function(layer) {
-            var context = {
-                feature: layer.feature,
-                variables: {}
-            };
-            layer.bindTooltip((layer.feature.properties['descrição'] !== null?String('<div style="color: #323232; font-size: 12pt; font-weight: bold; font-family: \'Arial\', sans-serif;">' + layer.feature.properties['descrição']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Fotos360_1'});
-            labels.push(layer);
-            totalMarkers += 1;
-              layer.added = true;
-              addLabel(layer, i);
-              i++;
-        });
-        L.ImageOverlay.include({
-            getBounds: function () {
-                return this._bounds;
-            }
-        });
-        resetLabels([layer_Fotos360_1]);
-        map.on("zoomend", function(){
-            resetLabels([layer_Fotos360_1]);
-        });
-        map.on("layeradd", function(){
-            resetLabels([layer_Fotos360_1]);
-        });
-        map.on("layerremove", function(){
-            resetLabels([layer_Fotos360_1]);
-        });
-        </script>
+        <script src="resources/qgis2web_expressions.js"></script>
+        <script src="./resources/functions.js"></script>
+        <script src="./resources/ol.js"></script>
+        <script src="./resources/ol-layerswitcher.js"></script>
+        <script src="resources/photon-geocoder-autocomplete.min.js"></script>
+        <script src="layers/FotosRV360_3.js"></script><script src="layers/VideoRV360_4.js"></script><script src="layers/Inciodovdeo_5.js"></script>
+        <script src="styles/FotosRV360_3_style.js"></script><script src="styles/VideoRV360_4_style.js"></script><script src="styles/Inciodovdeo_5_style.js"></script>
+        <script src="./layers/layers.js" type="text/javascript"></script> 
+        <script src="./resources/Autolinker.min.js"></script>
+        <script src="./resources/qgis2web.js"></script>        
     </body>
 </html>
