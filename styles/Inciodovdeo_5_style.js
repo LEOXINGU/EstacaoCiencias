@@ -69,7 +69,7 @@ var style_Inciodovdeo_5 = function(feature, resolution){
     var style = [ new ol.style.Style({
         image: new ol.style.Icon({
                   imgSize: [119.15448, 95.484734],
-                  scale: 0.14267193310734097,
+                  scale: 0.16784933306745997,
                   anchor: [59.57724, 47.742367],
                   anchorXUnits: "pixels",
                   anchorYUnits: "pixels",
